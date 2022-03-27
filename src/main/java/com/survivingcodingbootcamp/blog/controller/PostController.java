@@ -29,12 +29,14 @@ public class PostController {
     @PostMapping("/{id}")
     public String addHashtag(@PathVariable long id, @RequestParam String hashtag){
         Post post = postRepo.findById(id).get();
-        postRepo.save(post);
+//        postRepo.save(post);
 
-        Optional<Hashtag> hashtag1 = hashtagRepo.findById(id);
+        Optional<Hashtag> hashtag1 = hashtagRepo.findByNameIgnoreCase(hashtag);
         if(hashtag1.isPresent()){
-            hashtag1.get().addPosts(post);
-            hashtagRepo.save(hashtag1.get());
+            if(!hashtag1.get().getPosts().contains(post)){
+                hashtag1.get().addPosts(post);
+                hashtagRepo.save(hashtag1.get());
+            }
         }
         else{
             Hashtag hashtag2 = new Hashtag(hashtag);

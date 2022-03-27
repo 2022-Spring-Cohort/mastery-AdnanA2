@@ -33,10 +33,7 @@ public class Post {
         this.topic = topic;
         this.content = content;
         this.author = author;
-
     }
-
-
 
 
     public Long getId() {

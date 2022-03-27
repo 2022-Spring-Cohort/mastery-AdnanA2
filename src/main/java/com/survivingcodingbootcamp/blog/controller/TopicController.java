@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
 import java.util.Optional;
 
 @Controller
@@ -28,11 +29,27 @@ public class TopicController {
         return "single-topic-template";
     }
 
+//    @PostMapping("/{id}")
+//    public String addNewPost(@PathVariable long id, @RequestParam String topic){
+//        Post post = postRepo.findById(id).get();
+//        postRepo.save(post);
+//
+//
+//        return "redirect:/post/"+id;
+//    }
     @PostMapping("/{id}")
-    public String addNewPost(@PathVariable long id, @RequestParam String Topic){
+    public String addNewPost(@PathVariable long id, @RequestParam String topic){
         Post post = postRepo.findById(id).get();
-        postRepo.save(post);
+//        postRepo.save(post);
 
-        return "redirect:/post/"+id;
+        Optional<Post> post1 = postRepo.findById(id);
+        if(post1.isPresent()){
+                post1.get().getTopic();
+                postRepo.save(post1.get());
+        }
+
+        return "redirect:/topics/"+id;
     }
+
+
 }

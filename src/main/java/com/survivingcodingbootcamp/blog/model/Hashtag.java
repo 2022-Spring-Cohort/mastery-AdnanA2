@@ -25,7 +25,6 @@ public class Hashtag {
     }
 
     public Hashtag() {
-
     }
 
     public Long getId() {

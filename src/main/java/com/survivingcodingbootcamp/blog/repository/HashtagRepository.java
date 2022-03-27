@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface HashtagRepository extends CrudRepository<Hashtag,Long> {
-
+        public Optional<Hashtag> findByNameIgnoreCase(String name);
 }
